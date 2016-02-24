@@ -1,7 +1,7 @@
-**********************************
+===================================
 *  Walmart Coding Assignment
 *  Ticket BookingService Homework
-**********************************
+===================================
 
 This ticket service allows user to create multiple holds and reservations for one customer.
 Also this service will hold any available seat within levels user provided and return holdId.
