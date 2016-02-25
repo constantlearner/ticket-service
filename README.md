@@ -65,7 +65,7 @@ Browser can be used. All the requests will be handled asynchronously
 ```$ curl -X GET http://localhost:9797/ticket-booking-service/v1/available-seats/venue?level=3```
 
 ```json
-{"venueLevel":3,"numberOfAvailableSeats":600}
+{"venueLevel":3,"numberOfAvailableSeats":1500}
 ```
 
 
@@ -73,7 +73,7 @@ Browser can be used. All the requests will be handled asynchronously
 
 ```$ curl -X GET http://localhost:9797/ticket-booking-service/v1/available-seats/venue```
 ```json
-{"venueLevel":null,"numberOfAvailableSeats":5350}
+{"venueLevel":null,"numberOfAvailableSeats":6250}
 ```
 
 
@@ -83,21 +83,21 @@ Browser can be used. All the requests will be handled asynchronously
    If no minLevel is given, it will search from 1 (Orchestra). also If no maxLevel,
    then it will search up to 4 (Balcony 2). If response take some time, it will return later asynchronously
 
-```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/num-seats/900/email/homer@simpson.com/venue?minLevel=1&maxLevel=3```
+```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/num-seats/900/email/sandeep@test.com/venue?minLevel=1&maxLevel=3```
 ```json
-$ {"holdId":50,"customerEmail":"homer@simpson.com","details":[{"venueLevel":1,"numOfSeats":900}]}
+$ {"holdId":50,"customerEmail":"sandeep@test.com","details":[{"venueLevel":1,"numOfSeats":900}]}
 ```
 
-```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/num-seats/20/email/homer@simpson.com/venue?minLevel=3```
+```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/num-seats/20/email/sandeep@test.com/venue?minLevel=3```
 ```json
-{"holdId":51,"customerEmail":"homer@simpson.com","details":[{"venueLevel":3,"numOfSeats":20}]}
+{"holdId":51,"customerEmail":"sandeep@test.com","details":[{"venueLevel":3,"numOfSeats":20}]}
 ```
 
-* if fail to hole any seat, it will return null for holdId
+* if fail to hold any seat, it will return null for holdId
 
-```$ curl -minLevel=1&maxLevel=4"st:9797/ticket--booking-service/v1/hold/num-seats/900/email/homer@simpson.com/venue?minLevel=2```
+```$ curl  http://localhost:9797/ticket-booking-service/v1/hold/num-seats/9000/email/sandeep@test.com/venue?minLevel=2```
 ```json
-{"holdId":null,"customerEmail":"homer@simpson.com","details":[]}
+{"holdId":null,"customerEmail":"sandeep@test.com","details":[]}
 ```
 
 #### 3) request to reserve seat by holdId 
@@ -105,24 +105,24 @@ $ {"holdId":50,"customerEmail":"homer@simpson.com","details":[{"venueLevel":1,"n
    If reservation finished successfully, it will return confirmationCode
 
 
-```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/51/email/homer@simpson.com/reserve```
+```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/51/email/sandeep@test.com/reserve```
 ```json
-{"holdId":51,"customerEmail":"homer@simpson.com","confirmationCode":"787bff5f-ed20-33bc-949d-e49fa52ac38c"}
+{"holdId":51,"customerEmail":"sandeep@simpson.com","confirmationCode":"787bff5f-ed20-33bc-949d-e49fa52ac38c"}
 ```
 
 However seat hold is expired or customerEmail is not matched for the seatHold, it will return error message
 
 (seat hold expired or no hold found)
-```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/52/email/homer@simpson.com/reserve```
+```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/100/email/sandeep@test.com/reserve```
 ```json
 {"timestamp":1447996898576,"status":404,"error":"Not Found","exception":"com.walmart.ticketservice.error.SeatHoldNotFoundException","message":"no such hold","path":"/ticket-service/v1/hold/52/email/homer@simpson.com/reserve"}
 ```
 
-(customer validation fail)
-```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/51/email/bart@simpson.com/reserve```
+(customer validation fail wrong email for hold id)
+```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/51/email/sandeepinvalid@test.com/reserve```
 
 ```json
-{"timestamp":1447996837793,"status":400,"error":"Bad Request","exception":"com.walmart.ticketservice.error.CustomerValidationException","message":"email is not matching","path":"/ticket-service/v1/hold/51/email/bart@simpson.com/reserve"}
+{"timestamp":1447996837793,"status":400,"error":"Bad Request","exception":"com.walmart.ticketservice.error.CustomerValidationException","message":"email is not matching","path":"/ticket-service/v1/hold/51/email/sandeepinvalid@test.com/reserve"}
 ```
 
 
