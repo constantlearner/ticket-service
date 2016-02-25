@@ -6,8 +6,8 @@ This ticket service allows user to create multiple holds and reservations for on
 Also this service will hold any available seat within levels user provided and return holdId.
 If available seats are not enough in one level, then hole available seat in next level.
 There is no limit on number of holding nor on number of seat to hold. This service will returns
-seat holdId when it can hold at least one seat. So if user request 10 seats, but find 2 seat then
-it holds the 2 seats and return seat holdId. However seat hold id can be empty if service cannot
+seat holdId when it can hold at least one seat. So if user request 8 seats, but find 4 seat then
+it holds the 4 seats and return seat holdId. However seat hold id can be empty if service cannot
 find any available seat in the levels user provided.
 
 This service is design for simple web service, but also provides command line test mode too.
@@ -127,7 +127,7 @@ However seat hold is expired or customerEmail is not matched for the seatHold, i
 ```
 
 
-####4) reset database with removing all the hold and customer data #### 
+#### 4) reset database with removing all the hold and customer data #### 
  for testing convenience, admin endpoint is available to clean up all the seat holds and customer info.
 
 ```$ curl -X DELETE http://localhost:9797/admin/seat-holds```
