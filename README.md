@@ -100,8 +100,7 @@ $ {"holdId":50,"customerEmail":"homer@simpson.com","details":[{"venueLevel":1,"n
 {"holdId":null,"customerEmail":"homer@simpson.com","details":[]}
 ```
 
-
-#### 3) request to reserve seat by holdId #### 
+#### 3) request to reserve seat by holdId 
    endpoint: `/ticket-service/v1/hold/{holdId}/email/{customerEmail}/reserve`
    If reservation finished successfully, it will return confirmationCode
 
@@ -127,7 +126,7 @@ However seat hold is expired or customerEmail is not matched for the seatHold, i
 ```
 
 
-#### 4) reset database with removing all the hold and customer data #### 
+#### 4) reset database with removing all the hold and customer data 
  for testing convenience, admin endpoint is available to clean up all the seat holds and customer info.
 
 ```$ curl -X DELETE http://localhost:9797/admin/seat-holds```
