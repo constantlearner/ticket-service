@@ -1,5 +1,5 @@
 ===================================
-*  Ticket BookingService Homework *
+*  Ticket BookingService Assignment  *
 ===================================
 
 This ticket service allows user to create multiple holds and reservations for one customer.
