@@ -131,6 +131,7 @@ However seat hold is expired or customerEmail is not matched for the seatHold, i
  for testing convenience, admin endpoint is available to clean up all the seat holds and customer info.
 
 ```$ curl -X DELETE http://localhost:9797/admin/seat-holds```
+
 All SeatHolds with Customer Info have been deleted!
 
 
