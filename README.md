@@ -101,7 +101,7 @@ $ {"holdId":50,"customerEmail":"homer@simpson.com","details":[{"venueLevel":1,"n
 ```
 
 
-#### 3) request to reserve seat by holdId#### 
+#### 3) request to reserve seat by holdId #### 
    endpoint: `/ticket-service/v1/hold/{holdId}/email/{customerEmail}/reserve`
    If reservation finished successfully, it will return confirmationCode
 
