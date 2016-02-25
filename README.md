@@ -63,7 +63,11 @@ Browser can be used. All the requests will be handled asynchronously
    endpoint: /ticket-service/v1/available-seats/venue?level={venueLevel}
 
 ```$ curl -X GET http://localhost:9797/ticket-booking-service/v1/available-seats/venue?level=3```
+
+[source,json]
+----
 {"venueLevel":3,"numberOfAvailableSeats":600}
+---
 
 
 *level is queryParam and optional, so you can omit the param and it will give total available seats through whole levels
