@@ -115,14 +115,14 @@ However seat hold is expired or customerEmail is not matched for the seatHold, i
 (seat hold expired or no hold found)
 ```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/100/email/sandeep@test.com/reserve```
 ```json
-{"timestamp":1447996898576,"status":404,"error":"Not Found","exception":"com.walmart.ticketservice.error.SeatHoldNotFoundException","message":"no such hold","path":"/ticket-service/v1/hold/52/email/homer@simpson.com/reserve"}
+{"timestamp":1447996898576,"status":404,"error":"Not Found","exception":"com.walmart.ticketbooking.error.SeatHoldNotFoundException","message":"no such hold","path":"/ticket-booking-service/v1/hold/52/email/sandeep@test.com/reserve"}
 ```
 
 (customer validation fail wrong email for hold id)
 ```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/51/email/sandeepinvalid@test.com/reserve```
 
 ```json
-{"timestamp":1447996837793,"status":400,"error":"Bad Request","exception":"com.walmart.ticketservice.error.CustomerValidationException","message":"email is not matching","path":"/ticket-service/v1/hold/51/email/sandeepinvalid@test.com/reserve"}
+{"timestamp":1447996837793,"status":400,"error":"Bad Request","exception":"com.walmart.ticketbooking.error.CustomerValidationException","message":"email is not matching","path":"/ticket-booking-service/v1/hold/51/email/sandeepinvalid@test.com/reserve"}
 ```
 
 
