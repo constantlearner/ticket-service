@@ -59,66 +59,75 @@ After starting service as server mode, service will expect receiving request ove
 If curl command is available, then you can send requests like below. If curl is not available, then REST client plugin for Chrome or FireFox
 Browser can be used. All the requests will be handled asynchronously
 
-1) request to find available seats
-   endpoint: /ticket-service/v1/available-seats/venue?level={venueLevel}
+#### 1) request to find available seats ####
+   endpoint: `/ticket-service/v1/available-seats/venue?level={venueLevel}`
 
 ```$ curl -X GET http://localhost:9797/ticket-booking-service/v1/available-seats/venue?level=3```
 
-[source,json]
-----
+```json
 {"venueLevel":3,"numberOfAvailableSeats":600}
----
+```
 
 
-*level is queryParam and optional, so you can omit the param and it will give total available seats through whole levels
+`level` is queryParam and optional, so you can omit the param and it will give total available seats through whole levels
 
 ```$ curl -X GET http://localhost:9797/ticket-booking-service/v1/available-seats/venue```
+```json
 {"venueLevel":null,"numberOfAvailableSeats":5350}
+```
 
 
-
-2) request to find and hold seats
-   endpoint: /ticket-service/v1/hold/num-seats/{numberOfSeats}/email/{customerEmail}/venue?minLevel={minLevel}&maxLevel={maxLevel}
+#### 2) request to find and hold seats ####
+   endpoint: `/ticket-service/v1/hold/num-seats/{numberOfSeats}/email/{customerEmail}/venue?minLevel={minLevel}&maxLevel={maxLevel}`
    minLevel and maxLevel are queryParam and optional. So you can omit any or both of queryParams.
    If no minLevel is given, it will search from 1 (Orchestra). also If no maxLevel,
    then it will search up to 4 (Balcony 2). If response take some time, it will return later asynchronously
 
 ```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/num-seats/900/email/homer@simpson.com/venue?minLevel=1&maxLevel=3```
-
+```json
 $ {"holdId":50,"customerEmail":"homer@simpson.com","details":[{"venueLevel":1,"numOfSeats":900}]}
-
+```
 
 ```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/num-seats/20/email/homer@simpson.com/venue?minLevel=3```
+```json
 {"holdId":51,"customerEmail":"homer@simpson.com","details":[{"venueLevel":3,"numOfSeats":20}]}
+```
 
 * if fail to hole any seat, it will return null for holdId
 
 ```$ curl -minLevel=1&maxLevel=4"st:9797/ticket--booking-service/v1/hold/num-seats/900/email/homer@simpson.com/venue?minLevel=2```
+```json
 {"holdId":null,"customerEmail":"homer@simpson.com","details":[]}
+```
 
 
-3) request to reserve seat by holdId
-   endpoint: /ticket-service/v1/hold/{holdId}/email/{customerEmail}/reserve
+#### 3) request to reserve seat by holdId#### 
+   endpoint: `/ticket-service/v1/hold/{holdId}/email/{customerEmail}/reserve`
    If reservation finished successfully, it will return confirmationCode
 
 
 ```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/51/email/homer@simpson.com/reserve```
+```json
 {"holdId":51,"customerEmail":"homer@simpson.com","confirmationCode":"787bff5f-ed20-33bc-949d-e49fa52ac38c"}
-
+```
 
 However seat hold is expired or customerEmail is not matched for the seatHold, it will return error message
 
 (seat hold expired or no hold found)
 ```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/52/email/homer@simpson.com/reserve```
+```json
 {"timestamp":1447996898576,"status":404,"error":"Not Found","exception":"com.walmart.ticketservice.error.SeatHoldNotFoundException","message":"no such hold","path":"/ticket-service/v1/hold/52/email/homer@simpson.com/reserve"}
+```
 
 (customer validation fail)
 ```$ curl -X POST http://localhost:9797/ticket-booking-service/v1/hold/51/email/bart@simpson.com/reserve```
+
+```json
 {"timestamp":1447996837793,"status":400,"error":"Bad Request","exception":"com.walmart.ticketservice.error.CustomerValidationException","message":"email is not matching","path":"/ticket-service/v1/hold/51/email/bart@simpson.com/reserve"}
+```
 
 
-
-4) reset database with removing all the hold and customer data
+####4) reset database with removing all the hold and customer data #### 
  for testing convenience, admin endpoint is available to clean up all the seat holds and customer info.
 
 ```$ curl -X DELETE http://localhost:9797/admin/seat-holds```
