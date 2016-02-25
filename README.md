@@ -10,7 +10,6 @@ seat holdId when it can hold at least one seat. So if user request 8 seats, but 
 it holds the 4 seats and return seat holdId. However seat hold id can be empty if service cannot
 find any available seat in the levels user provided.
 
-This service is design for simple web service, but also provides command line test mode too.
 
 
 ===================================
